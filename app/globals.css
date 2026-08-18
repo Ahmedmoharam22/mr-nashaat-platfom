@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-tajawal), system-ui, sans-serif;
+
+  --color-primary: var(--color-primary);
+  --color-primary-hover: var(--color-primary-hover);
+  --color-primary-active: var(--color-primary-active);
+  --color-primary-light: var(--color-primary-light);
+  
+  --color-accent: var(--color-accent);
+  --color-accent-light: var(--color-accent-light);
+  
+  --color-bg: var(--color-bg);
+  --color-bg-elevated: var(--color-bg-elevated);
+  
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  
+  --color-success: var(--color-success);
+  --color-danger: var(--color-danger);
+  --color-border: var(--color-border);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+}
+
+:root {
+  /* Primary Yellow (#FACC15) & States */
+  --color-primary: #FACC15;        /* Yellow-400 Base */
+  --color-primary-hover: #EAB308;  /* Yellow-500 Hover */
+  --color-primary-active: #CA8A04; /* Yellow-600 Active */
+  --color-primary-light: #FEF08A;  /* Yellow-200 Soft */
+
+  /* Accents */
+  --color-accent: #FACC15;
+  --color-accent-light: #FEF08A;
+
+  /* Clean White Backgrounds */
+  --color-bg: #FFFFFF;             /* Body White */
+  --color-bg-elevated: #F8FAFC;    /* Cards / Elevated Containers */
+
+  /* Readable Text (Slate/Dark) */
+  --color-text-primary: #0F172A;   /* Slate-900 */
+  --color-text-secondary: #475569; /* Slate-600 */
+
+  /* Functional Colors */
+  --color-success: #16A34A;
+  --color-danger: #DC2626;
+  --color-border: #E2E8F0;         /* Slate-200 */
+
+  /* Typography & Radii */
+  --font-tajawal: 'Tajawal', sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+}
+
+/* Custom Selection & Scrollbar */
+::selection {
+  background-color: #FACC15;
+  color: #0F172A;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FACC15;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #EAB308;
+}
+
+/* Swiper Custom Pagination Dots */
+.custom-pagination .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #cbd5e1;
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.custom-pagination .swiper-pagination-bullet-active {
+  background: #dc2626; 
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+}
