@@ -1,20 +1,27 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, Lock } from "lucide-react";
+import { Phone, Lock, Eye, EyeOff, Loader2, LogIn } from "lucide-react";
+import { InputWrapper } from "@/components/ui/InputWrapper";
+import { useLoginForm } from "../hooks/useLoginForm";
 
 export default function LoginForm() {
-  const [formData, setFormData] = useState({
-    phone: "",
-    password: "",
-  });
+  const {
+    formData,
+    showPassword,
+    errors,
+    isLoading,
+    serverError,
+    handleChange,
+    toggleShowPassword,
+    handleSubmit,
+  } = useLoginForm();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Login Data:", formData);
-  };
+  const inputClass = (hasError: boolean) =>
+    `w-full bg-white border-b-2 ${
+      hasError ? "border-red-400 focus:border-red-500" : "border-slate-300 focus:border-amber-500"
+    } pb-2 pr-9 pl-3 text-sm text-slate-900 placeholder-slate-400 outline-none transition-colors`;
 
   return (
     <main className="h-screen max-h-screen w-full bg-[var(--color-bg)] p-3 sm:p-4 lg:p-6 flex items-center justify-center overflow-hidden dir-rtl">
@@ -53,46 +60,75 @@ export default function LoginForm() {
                 </p>
               </div>
 
+              {/* الخطأ من السيرفر */}
+              {serverError && (
+                <div className="bg-red-50 border border-red-200 text-red-600 text-xs font-semibold px-4 py-2.5 rounded-xl text-right">
+                  {serverError}
+                </div>
+              )}
+
               {/* نموذج البيانات */}
-              <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6 pt-2 text-right">
+              <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6 pt-2 text-right" noValidate>
                 
                 {/* رقم الهاتف */}
-                <div className="relative">
-                  <div className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400">
-                    <Phone className="w-4 h-4" />
-                  </div>
+                <InputWrapper icon={<Phone className="w-4 h-4" />} error={errors.phone}>
                   <input
                     type="tel"
-                    required
+                    name="phone"
+                    dir="ltr"
+                    autoComplete="tel"
                     placeholder="رقم الهاتف"
                     value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full bg-transparent border-b-2 border-slate-300 focus:border-amber-500 pb-2 pl-8 pr-2 text-sm text-slate-800 placeholder-slate-400 outline-none transition-colors text-right"
+                    onChange={handleChange}
+                    className={`${inputClass(!!errors.phone)} text-right`}
+                    maxLength={11}
                   />
-                </div>
+                </InputWrapper>
 
                 {/* كلمة المرور */}
-                <div className="relative">
-                  <div className="absolute left-2 top-1/2 -translate-y-1/2 text-slate-400">
-                    <Lock className="w-4 h-4" />
-                  </div>
+                <InputWrapper
+                  icon={<Lock className="w-4 h-4" />}
+                  leftElement={
+                    <button
+                      type="button"
+                      onClick={toggleShowPassword}
+                      className="text-slate-400 hover:text-slate-600 transition-colors p-1 z-10"
+                      aria-label="إظهار/إخفاء كلمة المرور"
+                    >
+                      {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    </button>
+                  }
+                  error={errors.password}
+                >
                   <input
-                    type="password"
-                    required
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    autoComplete="current-password"
                     placeholder="كلمة المرور"
                     value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    className="w-full bg-transparent border-b-2 border-slate-300 focus:border-amber-500 pb-2 pl-8 pr-2 text-sm text-slate-800 placeholder-slate-400 outline-none transition-colors"
+                    onChange={handleChange}
+                    className={`${inputClass(!!errors.password)} pl-10`}
                   />
-                </div>
+                </InputWrapper>
 
-                {/* زر الدخول بنفس أبعاد زر التالي */}
+                {/* زر الدخول الموحد */}
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="w-full bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 border border-[var(--color-primary)] text-slate-950 hover:text-[var(--color-primary-active)] font-black py-3 sm:py-3.5 rounded-2xl text-sm sm:text-base transition-colors duration-200 shadow-md cursor-pointer"
+                    disabled={isLoading}
+                    className="w-full flex items-center justify-center gap-1.5 bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] border border-[var(--color-primary)] text-slate-950 font-black py-3 sm:py-3.5 rounded-2xl text-sm sm:text-base transition-colors duration-200 shadow-md cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    تسجيل الدخول
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin text-slate-800" />
+                        جاري تسجيل الدخول...
+                      </>
+                    ) : (
+                      <>
+                        تسجيل الدخول
+                        <LogIn className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
                 </div>
 

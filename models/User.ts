@@ -1,4 +1,4 @@
-import mongoose, { Document, Model, Schema } from "mongoose";
+import mongoose, { Document, Model, Schema, SchemaDefinitionProperty } from "mongoose";
 
 // ---------------------------------------------------------------------------
 // Enumerations
@@ -22,8 +22,14 @@ export interface IUser extends Document {
   /** The user's full display name. */
   name: string;
 
-  /** Unique email address used for authentication and identification. */
-  email: string;
+  /**
+   * Egyptian mobile phone number — used as the primary login identifier.
+   * Required for credentials-based accounts.
+   */
+  phone?: string;
+
+  /** Unique email address — kept optional for potential Google OAuth. */
+  email?: string;
 
   /**
    * Hashed password — only present when provider is "credentials".
@@ -42,6 +48,9 @@ export interface IUser extends Document {
 
   /** The parent's phone number. */
   parentPhone?: string;
+
+  /** Egyptian governorate the student is from. */
+  governorate?: string;
 
   /**
    * Academic grade — mandatory for students, not applicable for teachers.
@@ -70,12 +79,31 @@ const userSchema = new Schema<IUser>(
       trim: true,
     },
 
-    /** Unique email address used for authentication and identification. */
+    /**
+     * Egyptian mobile phone number — primary login identifier for credentials users.
+     * Uniqueness enforced via explicit sparse index below, NOT on the field itself.
+     */
+    phone: {
+      type: String,
+      trim: true,
+    },
+
+    /**
+     * Unique email address — optional, retained for Google OAuth support.
+     * Do NOT set `default: null` here — null values get indexed by sparse
+     * unique indexes and cause E11000 on the second insert. Leaving it
+     * undefined (absent) lets the sparse index skip it entirely.
+     */
     email: {
       type: String,
-      required: [true, "Email is required."],
-      unique: true,
+      required: false,
       lowercase: true,
+      trim: true,
+    },
+
+    /** The parent's phone number. */
+    parentPhone: {
+      type: String,
       trim: true,
     },
 
@@ -96,7 +124,7 @@ const userSchema = new Schema<IUser>(
         },
         message: "Password is required for credentials-based accounts.",
       },
-    },
+    } as SchemaDefinitionProperty<string>,
 
     /** URL of the user's profile picture (e.g. from Google OAuth). */
     image: {
@@ -159,6 +187,12 @@ const userSchema = new Schema<IUser>(
       },
     },
 
+    /** Egyptian governorate the student is from. */
+    governorate: {
+      type: String,
+      trim: true,
+    },
+
     /** Whether the account is currently active; set to false to ban a user. */
     isActive: {
       type: Boolean,
@@ -175,18 +209,29 @@ const userSchema = new Schema<IUser>(
 // Indexes
 // ---------------------------------------------------------------------------
 
-// Unique index on email for fast lookup and constraint enforcement.
-userSchema.index({ email: 1 }, { unique: true });
+// Sparse unique index on email (only for Google OAuth users).
+userSchema.index({ email: 1 }, { unique: true, sparse: true });
+
+// Sparse unique index on phone for credentials-based login.
+userSchema.index({ phone: 1 }, { unique: true, sparse: true });
 
 // Compound index to efficiently query "all students in a specific grade".
 userSchema.index({ role: 1, grade: 1 });
 
 // ---------------------------------------------------------------------------
-// Model — Next.js-safe export to prevent recompilation errors in dev mode
+// Model — Force-refresh in dev mode so schema changes apply without restart
 // ---------------------------------------------------------------------------
 
+// In Next.js dev mode, mongoose.models.User persists across HMR reloads.
+// If we just do `mongoose.models.User || mongoose.model(...)`, the OLD schema
+// (e.g. with email required) stays cached forever. Delete it first so the
+// updated schema is always applied.
+if (process.env.NODE_ENV !== "production" && mongoose.models.User) {
+  delete mongoose.models.User;
+}
+
 const User: Model<IUser> =
-  (mongoose.models.User as Model<IUser>) ||
+  mongoose.models.User as Model<IUser> ||
   mongoose.model<IUser>("User", userSchema);
 
 export default User;

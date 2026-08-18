@@ -26,10 +26,10 @@ export async function middleware(req: NextRequest) {
 
   // 3. التحقق من الصلاحيات حسب الدور (Role Protection)
   if (token) {
-    if (isTeacherRoute && token.role !== "teacher" && token.role !== "admin") {
+    if (isTeacherRoute && token.role !== "teacher" && (token.role as string) !== "admin") {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
-    if (isStudentRoute && token.role !== "student" && token.role !== "admin") {
+    if (isStudentRoute && token.role !== "student" && (token.role as string) !== "admin") {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
   }

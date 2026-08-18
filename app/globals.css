@@ -3,23 +3,23 @@
 @theme {
   --font-sans: var(--font-tajawal), system-ui, sans-serif;
 
-  --color-primary: var(--color-primary);
-  --color-primary-hover: var(--color-primary-hover);
-  --color-primary-active: var(--color-primary-active);
-  --color-primary-light: var(--color-primary-light);
+  --color-primary: var(--raw-primary);
+  --color-primary-hover: var(--raw-primary-hover);
+  --color-primary-active: var(--raw-primary-active);
+  --color-primary-light: var(--raw-primary-light);
   
-  --color-accent: var(--color-accent);
-  --color-accent-light: var(--color-accent-light);
+  --color-accent: var(--raw-accent);
+  --color-accent-light: var(--raw-accent-light);
   
-  --color-bg: var(--color-bg);
-  --color-bg-elevated: var(--color-bg-elevated);
+  --color-bg: var(--raw-bg);
+  --color-bg-elevated: var(--raw-bg-elevated);
   
-  --color-text-primary: var(--color-text-primary);
-  --color-text-secondary: var(--color-text-secondary);
+  --color-text-primary: var(--raw-text-primary);
+  --color-text-secondary: var(--raw-text-secondary);
   
-  --color-success: var(--color-success);
-  --color-danger: var(--color-danger);
-  --color-border: var(--color-border);
+  --color-success: var(--raw-success);
+  --color-danger: var(--raw-danger);
+  --color-border: var(--raw-border);
 
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
@@ -28,27 +28,27 @@
 
 :root {
   /* Primary Yellow (#FACC15) & States */
-  --color-primary: #FACC15;        /* Yellow-400 Base */
-  --color-primary-hover: #EAB308;  /* Yellow-500 Hover */
-  --color-primary-active: #CA8A04; /* Yellow-600 Active */
-  --color-primary-light: #FEF08A;  /* Yellow-200 Soft */
+  --raw-primary: #FACC15;        /* Yellow-400 Base */
+  --raw-primary-hover: #EAB308;  /* Yellow-500 Hover */
+  --raw-primary-active: #CA8A04; /* Yellow-600 Active */
+  --raw-primary-light: #FEF08A;  /* Yellow-200 Soft */
 
   /* Accents */
-  --color-accent: #FACC15;
-  --color-accent-light: #FEF08A;
+  --raw-accent: #FACC15;
+  --raw-accent-light: #FEF08A;
 
   /* Clean White Backgrounds */
-  --color-bg: #FFFFFF;             /* Body White */
-  --color-bg-elevated: #F8FAFC;    /* Cards / Elevated Containers */
+  --raw-bg: #FFFFFF;             /* Body White */
+  --raw-bg-elevated: #F8FAFC;    /* Cards / Elevated Containers */
 
   /* Readable Text (Slate/Dark) */
-  --color-text-primary: #0F172A;   /* Slate-900 */
-  --color-text-secondary: #475569; /* Slate-600 */
+  --raw-text-primary: #0F172A;   /* Slate-900 */
+  --raw-text-secondary: #475569; /* Slate-600 */
 
   /* Functional Colors */
-  --color-success: #16A34A;
-  --color-danger: #DC2626;
-  --color-border: #E2E8F0;         /* Slate-200 */
+  --raw-success: #16A34A;
+  --raw-danger: #DC2626;
+  --raw-border: #E2E8F0;         /* Slate-200 */
 
   /* Typography & Radii */
   --font-tajawal: 'Tajawal', sans-serif;

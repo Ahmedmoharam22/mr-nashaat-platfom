@@ -10,17 +10,17 @@ const config: NextAuthConfig = {
     CredentialsProvider({
       name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
+        phone: { label: "Phone", type: "tel" },
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error("الرجاء إدخال البريد وكلمة المرور.");
+        if (!credentials?.phone || !credentials?.password) {
+          throw new Error("الرجاء إدخال رقم الهاتف وكلمة المرور.");
         }
 
         await connectDB();
 
-        const user = await User.findOne({ email: credentials.email }).select("+password");
+        const user = await User.findOne({ phone: credentials.phone }).select("+password");
         if (!user || !user.password) {
           throw new Error("بيانات الدخول غير صحيحة.");
         }
@@ -37,7 +37,7 @@ const config: NextAuthConfig = {
         return {
           id: user._id.toString(),
           name: user.name,
-          email: user.email,
+          phone: user.phone,
           role: user.role,
           grade: user.grade,
         };
@@ -49,7 +49,8 @@ const config: NextAuthConfig = {
       if (user) {
         token.role = (user as any).role;
         token.grade = (user as any).grade;
-        token.id = user.id;
+        // user.id is `string | undefined` in Next-Auth types; assert non-null
+        token.id = user.id!;
       }
       return token;
     },

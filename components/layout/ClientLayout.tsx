@@ -13,12 +13,15 @@ export default function ClientLayout({
 }) {
   const pathname = usePathname();
   const isAuthPage = pathname === "/register" || pathname === "/login";
+  const isDashboardPage = pathname.startsWith("/dashboard");
+
+  const hideFooter = isAuthPage || isDashboardPage;
 
   return (
     <AuthProvider>
       {!isAuthPage && <Navbar />}
       <main className="flex-1">{children}</main>
-      {!isAuthPage && <Footer />}
+      {!hideFooter && <Footer />}
       <Toaster
         position="top-center"
         toastOptions={{

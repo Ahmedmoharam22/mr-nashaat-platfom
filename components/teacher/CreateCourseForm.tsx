@@ -4,11 +4,13 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  createCourseSchema,
-  CreateCourseInput,
-} from "@/features/courses/schemas/course.schema";
+import { z } from "zod";
+import { createCourseSchema } from "@/features/courses/schemas/course.schema";
 import { Loader2, PlusCircle } from "lucide-react";
+
+// Use the *output* type (after coercion + defaults) so price is `number`, not `unknown`
+type CreateCourseFormValues = z.output<typeof createCourseSchema>;
+
 
 const gradeOptions = [
   { value: "first_prep", label: "الصف الأول الإعدادي" },
@@ -27,11 +29,10 @@ export default function CreateCourseForm() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<CreateCourseInput>({
-    resolver: zodResolver(createCourseSchema),
-  });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } = useForm<CreateCourseFormValues>({ resolver: zodResolver(createCourseSchema) as any });
 
-  const onSubmit = async (data: CreateCourseInput) => {
+  const onSubmit = async (data: CreateCourseFormValues) => {
     setServerError(null);
 
     try {
@@ -50,8 +51,8 @@ export default function CreateCourseForm() {
       // توجيه المعلم لصفحة لوحة التحكم بعد النجاح
       router.push("/dashboard/teacher");
       router.refresh();
-    } catch (err: any) {
-      setServerError(err.message);
+    } catch (err: unknown) {
+      setServerError(err instanceof Error ? err.message : "حدث خطأ غير متوقع");
     }
   };
 

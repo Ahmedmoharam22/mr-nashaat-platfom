@@ -8,6 +8,7 @@ export const createCourseSchema = z.object({
   description: z
     .string()
     .min(10, "الوصف يجب أن يكون 10 أحرف على الأقل"),
+  // Zod v4: use `error` instead of `required_error`
   grade: z.enum(
     [
       "first_prep",
@@ -16,11 +17,11 @@ export const createCourseSchema = z.object({
       "first_secondary",
       "second_secondary",
       "third_secondary",
-    ],
-    { required_error: "يرجى اختيار الصف الدراسي" }
+    ] as const,
+    { error: "يرجى اختيار الصف الدراسي" }
   ),
-  subject: z.enum(["history", "geography", "geology"], {
-    required_error: "يرجى اختيار المادة الدراسية",
+  subject: z.enum(["history", "geography", "geology"] as const, {
+    error: "يرجى اختيار المادة الدراسية",
   }),
   price: z.coerce.number().min(0, "السعر لا يمكن أن يكون بالسالب").default(0),
 });

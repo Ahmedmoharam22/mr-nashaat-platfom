@@ -29,10 +29,11 @@ export default function AboutSection() {
   ];
 
   return (
-    <section className="relative py-8 sm:py-16 lg:py-20 bg-[var(--color-bg)] text-[var(--color-text-primary)] overflow-x-hidden w-full dir-rtl">
+    <section className="relative py-8 sm:py-16 lg:py-20 bg-bg text-text-primary overflow-x-hidden w-full">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
+
         {/* Header القسم */}
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
