@@ -36,11 +36,9 @@
 
 ## 📸 Screenshots & Showcase
 
-> _Note: You can replace the placeholder URLs below with actual screenshots/GIFs of your application in action!_
-
-|                                    👨‍🏫 Teacher Dashboard & Course Management                                    |                                     🎬 Custom Video Player & Lesson UX                                     |
-| :------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
-| ![Teacher Dashboard](https://raw.githubusercontent.com/Ahmedmoharam22/mr-nashaat-platfom/main/public/file.svg) | ![Video Player](https://raw.githubusercontent.com/Ahmedmoharam22/mr-nashaat-platfom/main/public/globe.svg) |
+| **🏠 Home Page (Overview & Courses)** | **🔐 Authentication (Login & Signup)** |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/278d3048-75d3-452b-893c-c5064b7dfad9" alt="Home Page Overview" width="100%" /> | <img src="https://github.com/user-attachments/assets/6a301305-90f0-49d2-83b8-7c59cd2d9ed9" alt="Authentication Page" width="100%" /> |
 
 ---
 
