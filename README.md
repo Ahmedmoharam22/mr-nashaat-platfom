@@ -33,12 +33,15 @@
 - **The Solution:** A modern, mobile-responsive **RTL-first EdTech LMS** featuring an custom video player with multi-speed controls (`0.5x` to `2x`), robust course creation for teachers, and instant live deployment.
 
 ---
-
 ## 📸 Screenshots & Showcase
 
-| **🏠 Home Page (Overview & Courses)** | **🔐 Authentication (Login & Signup)** |
+| **🏠 Home Page (Hero & Overview)** | **📚 Home Page (Courses & Features)** |
 | :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/278d3048-75d3-452b-893c-c5064b7dfad9" alt="Home Page Overview" width="100%" /> | <img src="https://github.com/user-attachments/assets/6a301305-90f0-49d2-83b8-7c59cd2d9ed9" alt="Authentication Page" width="100%" /> |
+| <img src="https://github.com/user-attachments/assets/160e0a50-15e9-4547-a212-22183c2fe6ac" alt="Home Page Hero Section" width="100%" /> | <img src="https://github.com/user-attachments/assets/a1bc64d0-7ef9-45d9-ab68-000da2fa999a" alt="Home Page Overview" width="100%" /> |
+
+| **🔐 Login Page** | **✨ Authentication & Portal View** |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/278d3048-75d3-452b-893c-c5064b7dfad9" alt="Login Page" width="100%" /> | <img src="https://github.com/user-attachments/assets/6a301305-90f0-49d2-83b8-7c59cd2d9ed9" alt="Authentication View" width="100%" /> |
 
 ---
 
