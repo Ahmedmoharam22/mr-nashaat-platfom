@@ -24,6 +24,7 @@ export const createCourseSchema = z.object({
     error: "يرجى اختيار المادة الدراسية",
   }),
   price: z.coerce.number().min(0, "السعر لا يمكن أن يكون بالسالب").default(0),
+  coverImage: z.string().url("يرجى إدخال رابط صورة صحيح").optional().or(z.literal("")),
 });
 
 export type CreateCourseInput = z.infer<typeof createCourseSchema>;
