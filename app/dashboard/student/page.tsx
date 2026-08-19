@@ -3,18 +3,8 @@ import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { GraduationCap, BookOpen, ClipboardList } from "lucide-react";
 import StudentDashboardSkeleton from "@/components/skeletons/StudentDashboardSkeleton";
+import { formatGrade } from "@/lib/utils/formatGrade";
 
-// ─── Grade label map ─────────────────────────────────────────────────────────
-const gradeLabels: Record<string, string> = {
-  first_prep: "الصف الأول الإعدادي",
-  second_prep: "الصف الثاني الإعدادي",
-  third_prep: "الصف الثالث الإعدادي",
-  first_secondary: "الصف الأول الثانوي",
-  second_secondary: "الصف الثاني الثانوي",
-  third_secondary: "الصف الثالث الثانوي",
-};
-
-// ─── Inner async component (data-fetching boundary) ─────────────────────────
 async function StudentDashboardContent() {
   const session = await auth();
 
@@ -23,11 +13,11 @@ async function StudentDashboardContent() {
   }
 
   const grade = session.user.grade
-    ? gradeLabels[session.user.grade] ?? session.user.grade
+    ? formatGrade(session.user.grade)
     : "غير محدد";
 
   return (
-    <div className=" bg-[var(--color-bg)] p-6">
+    <div className="w-full bg-[var(--color-bg)] pt-24 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center gap-3">
@@ -71,7 +61,6 @@ async function StudentDashboardContent() {
   );
 }
 
-// ─── Page export — Suspense wraps the async content ─────────────────────────
 export default function StudentDashboardPage() {
   return (
     <Suspense fallback={<StudentDashboardSkeleton />}>

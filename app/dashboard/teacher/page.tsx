@@ -6,15 +6,14 @@ import { connectDB } from "@/lib/connect";
 import Course from "@/models/Course";
 import { LayoutDashboard, BookOpen, Users, Plus, FileText } from "lucide-react";
 import TeacherDashboardSkeleton from "@/components/skeletons/TeacherDashboardSkeleton";
+import { formatGrade, formatPrice } from "@/lib/utils/formatGrade";
 
-// خريطة لتنسيق أسماء المواد بالعربي
 const subjectLabels: Record<string, string> = {
   history: "تاريخ",
   geography: "جغرافيا",
   geology: "جيولوجيا",
 };
 
-// ─── Inner async component (data-fetching boundary) ─────────────────────────
 async function TeacherDashboardContent() {
   const session = await auth();
 
@@ -22,7 +21,6 @@ async function TeacherDashboardContent() {
     redirect("/dashboard");
   }
 
-  // الاتصال بالداتابيز وإحضار بيانات المعلم فقط
   await connectDB();
 
   const [coursesCount, courses] = await Promise.all([
@@ -33,7 +31,7 @@ async function TeacherDashboardContent() {
   ]);
 
   return (
-    <div className="w-full bg-[var(--color-bg)] p-6">
+    <div className="w-full bg-[var(--color-bg)] pt-24 pb-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto space-y-8">
         
         {/* Header with Quick Action */}
@@ -112,21 +110,27 @@ async function TeacherDashboardContent() {
               {courses.map((course: any) => (
                 <div
                   key={course._id.toString()}
-                  className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-[var(--radius-lg)] p-5 flex flex-col justify-between space-y-4"
+                  className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-[var(--radius-lg)] p-5 flex flex-col justify-between space-y-4 shadow-sm"
                 >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs px-2.5 py-1 bg-[var(--color-primary-light)] text-[var(--color-primary)] rounded-full font-medium">
-                        {subjectLabels[course.subject] ?? course.subject}
-                      </span>
-                      <span className="text-xs text-[var(--color-text-secondary)]">
-                        {course.price > 0 ? `${course.price} ج.م` : "مجاني"}
+                  <div className="space-y-2.5">
+                    <div className="flex items-center justify-between flex-wrap gap-2">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs px-2.5 py-0.5 bg-[var(--color-primary-light)] text-slate-900 rounded-full font-bold">
+                          {subjectLabels[course.subject] ?? course.subject}
+                        </span>
+                        <span className="text-xs px-2.5 py-0.5 bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 rounded-full font-bold">
+                          {formatGrade(course.grade)}
+                        </span>
+                      </div>
+                      <span className="text-xs font-extrabold text-slate-900 dark:text-slate-100 bg-slate-100 dark:bg-slate-800 px-2.5 py-0.5 rounded-md">
+                        {formatPrice(course.price)}
                       </span>
                     </div>
+
                     <h3 className="font-bold text-lg text-[var(--color-primary)]">
                       {course.title}
                     </h3>
-                    <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2">
+                    <p className="text-xs text-[var(--color-text-secondary)] line-clamp-2 leading-relaxed">
                       {course.description}
                     </p>
                   </div>
@@ -134,7 +138,7 @@ async function TeacherDashboardContent() {
                   <div className="pt-3 border-t border-[var(--color-border)] flex items-center justify-between">
                     <Link
                       href={`/dashboard/teacher/courses/${course._id}`}
-                      className="text-xs font-semibold text-[var(--color-primary)] hover:underline"
+                      className="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline"
                     >
                       إدارة الدروس والمحتوى ←
                     </Link>
@@ -150,7 +154,6 @@ async function TeacherDashboardContent() {
   );
 }
 
-// ─── Page export ─────────────────────────────────────────────────────────────
 export default function TeacherDashboardPage() {
   return (
     <Suspense fallback={<TeacherDashboardSkeleton />}>

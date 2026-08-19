@@ -1,6 +1,7 @@
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import CreateCourseForm from "@/components/teacher/CreateCourseForm";
+import { BackButton } from "@/components/ui/BackButton";
 import { BookPlus } from "lucide-react";
 
 export default async function NewCoursePage() {
@@ -11,8 +12,8 @@ export default async function NewCoursePage() {
   }
 
   return (
-    <div className="p-6">
-      <div className="max-w-3xl mx-auto space-y-6">
+    <div className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto space-y-6">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <BookPlus className="w-7 h-7 text-[var(--color-accent)]" />
           <div>
@@ -25,8 +26,10 @@ export default async function NewCoursePage() {
           </div>
         </div>
 
-        <CreateCourseForm />
+        <BackButton fallbackUrl="/dashboard/teacher" />
       </div>
+
+      <CreateCourseForm />
     </div>
   );
 }

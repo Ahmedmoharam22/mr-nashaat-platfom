@@ -14,6 +14,23 @@ function slugify(text: string) {
     .replace(/\-\-+/g, "-");
 }
 
+/** GET /api/courses — Public: list all published courses */
+export async function GET() {
+  try {
+    await connectDB();
+    const courses = await Course.find({ isPublished: true })
+      .sort({ createdAt: -1 })
+      .lean();
+    return NextResponse.json({ courses }, { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json(
+      { error: error.message || "حدث خطأ أثناء جلب الكورسات" },
+      { status: 500 }
+    );
+  }
+}
+
+/** POST /api/courses — Teacher only: create new course */
 export async function POST(req: Request) {
   try {
     const session = await auth();
