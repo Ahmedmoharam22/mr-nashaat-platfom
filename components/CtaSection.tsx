@@ -138,27 +138,34 @@ export default function CtaSection() {
           <div className="relative z-20 max-w-3xl mx-auto space-y-6">
             
             {/* العنوان "تاريخك هنا" */}
-            <motion.h2
+  <motion.h2
+
               initial={{ opacity: 0, scale: 0.95 }}
+
               whileInView={{ opacity: 1, scale: 1 }}
+
               viewport={{ once: true }}
+
               transition={{ duration: 0.4 }}
+
               className="text-4xl sm:text-6xl font-black tracking-tight text-white drop-shadow-md"
+
             >
+
               تاريخك هنا
+
             </motion.h2>
 
-            {/* النص التوضيحي باسم مستر نشأت */}
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="text-base sm:text-xl font-bold text-amber-50 leading-relaxed max-w-2xl mx-auto drop-shadow-sm"
-            >
-              كلام مؤرخين !! مستر نشأت مبيعولش غير كده و جابلك طريقة خفيفة ولذيذة عشان تتعلم التاريخ، عشان التاريخ ما يبقاش كابوس! وده كله عشان تدمن المادة، وتتعلم من غير ما تحس بالملل!
-            </motion.p>
-
+{/* النص التوضيحي بخط Tajawal الأساسي */}
+<motion.p
+  initial={{ opacity: 0, y: 10 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.4, delay: 0.1 }}
+  className="text-base sm:text-xl font-bold text-amber-50 leading-relaxed max-w-2xl mx-auto drop-shadow-sm"
+>
+  كلام مؤرخين !! مستر نشأت مبيقولش غير كده و جابلك طريقة خفيفة ولذيذة عشان تتعلم التاريخ، عشان التاريخ ما يبقاش كابوس! وده كله عشان تدمن المادة، وتتعلم من غير ما تحس بالملل!
+</motion.p>
             {/* زر "اشترك دلوقتي" باللون الرمادي المطابق للديزاين */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}

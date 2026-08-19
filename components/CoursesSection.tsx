@@ -32,17 +32,27 @@ export default function CoursesSection() {
       startDate: "الأحد، 9 أغسطس 2026",
       endDate: "الأحد، 9 أغسطس 2026",
       description: "كورس الشهر الأول - الصف الأول بكالوريا 💔 ...عرض باقي التفاصيل",
-      image: "/images/courses-bg.jpg",
+      image: "/images/course1.png",
     },
     {
-      id: "2",
-      title: "كورس الشهر الأول - الصف الثاني بكالوريا 💔",
-      gradeLabel: "الصف الثاني الثانوي",
-      price: "175 جنيه",
+      id: "1",
+      title: "كورس الشهر الأول - الصف الثالث الثانوي 💔",
+      gradeLabel: "الصف الأول الثانوي",
+      price: "100 جنيه",
       startDate: "الأحد، 9 أغسطس 2026",
       endDate: "الأحد، 9 أغسطس 2026",
-      description: "كورس الشهر الأول - الصف الثاني بكالوريا 💔 ...عرض باقي التفاصيل",
-      image: "/images/geology-earth.jpg",
+      description: "كورس الشهر الأول - الصف الأول بكالوريا 💔 ...عرض باقي التفاصيل",
+      image: "/images/course1.png",
+    },
+    {
+      id: "1",
+      title: "كورس الشهر الأول - الصف الثاني بكالوريا 💔",
+      gradeLabel: "الصف الأول الثانوي",
+      price: "100 جنيه",
+      startDate: "الأحد، 9 أغسطس 2026",
+      endDate: "الأحد، 9 أغسطس 2026",
+      description: "كورس الشهر الأول - الصف الأول بكالوريا 💔 ...عرض باقي التفاصيل",
+      image: "/images/course2.png",
     },
     {
       id: "3",
@@ -52,7 +62,7 @@ export default function CoursesSection() {
       startDate: "الأحد، 9 أغسطس 2026",
       endDate: "الأحد، 9 أغسطس 2026",
       description: "مراجعة شامالة ونواتج التعلم لنظام الامتحانات الحديث ...عرض باقي التفاصيل",
-      image: "/images/courses-bg.jpg",
+      image: "/images/course2.png",
     },
   ];
 
@@ -64,24 +74,25 @@ export default function CoursesSection() {
           
           {/* العمود الأيمن: العنوان والوصف وزر عرض الكل */}
           <div className="lg:col-span-5 text-center lg:text-right space-y-6">
-            <h2 className="text-3xl sm:text-5xl font-black text-slate-900 leading-tight">
-              كورساتنا لكل <br className="hidden sm:inline" />
-              <span className="text-slate-900">الصفوف الدراسية</span>
-            </h2>
+  {/* التطبيق المطابق للصورة تماماً */}
+  <h2 className="font-amin text-[40px] sm:text-[60px] font-bold text-[#111827] leading-[1.05] tracking-tight">
+    كورساتنا لكل <br className="hidden sm:inline" />
+    <span>الصفوف الدراسية</span>
+  </h2>
 
-            <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-lg mx-auto lg:mx-0 font-medium">
-              لو بتدور على الطريقة الأسهل والأضمن عشان تطور مستواك في المواد الأدبية والجيولوجيا وتوصل للتفوق، فأنت في المكان الصح!
-            </p>
+  <p className="text-slate-600 text-base sm:text-lg leading-relaxed max-w-lg mx-auto lg:mx-0 font-medium">
+    لو بتدور على الطريقة الأسهل والأضمن عشان تطور مستواك في المواد الأدبية والجيولوجيا وتوصل للتفوق، فأنت في المكان الصح!
+  </p>
 
-            <div>
-              <Link
-                href="/courses"
-                className="inline-block bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 border border-[var(--color-primary)] text-slate-950 hover:text-amber-600 font-black text-lg px-9 py-3.5 rounded-2xl shadow-md transition-colors duration-200"
-              >
-                عرض الكل
-              </Link>
-            </div>
-          </div>
+  <div>
+    <Link
+      href="/courses"
+      className="inline-block bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 border border-[var(--color-primary)] text-slate-950 hover:text-amber-600 font-black text-lg px-9 py-3.5 rounded-2xl shadow-md transition-colors duration-200"
+    >
+      عرض الكل
+    </Link>
+  </div>
+</div>
 
           {/* العمود الأيسر: السلايدر باستخدام Swiper JS */}
           <div className="lg:col-span-7 relative">

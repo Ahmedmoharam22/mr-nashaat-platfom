@@ -1,6 +1,9 @@
 export default {
   theme: {
     extend: {
+      fontFamily: {
+        amin: ["var(--font-amin)", "serif"],
+      },
       colors: {
         primary: {
           DEFAULT: "var(--color-primary)",

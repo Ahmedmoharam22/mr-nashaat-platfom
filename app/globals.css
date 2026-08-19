@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: var(--font-tajawal), system-ui, sans-serif;
+  --font-amin: var(--font-amin), serif;
 
   --color-primary: var(--raw-primary);
   --color-primary-hover: var(--raw-primary-hover);

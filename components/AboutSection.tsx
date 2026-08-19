@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Compass, BookOpen, BrainCircuit, UserCheck, Sparkles } from "lucide-react";
+import { SectionTitle } from "./ui/SectionTitle";
 
 export default function AboutSection() {
   const features = [
@@ -41,19 +42,10 @@ export default function AboutSection() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 lg:mb-16 space-y-3 sm:space-y-4"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-1.5 rounded-full bg-[var(--color-primary-light)] border border-[var(--color-primary)] text-[var(--color-text-primary)] text-xs sm:text-sm font-bold">
-            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            رحلة التميز والتقفيل
-          </div>
-          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-            ليه تختار{" "}
-            <span className="bg-[var(--color-primary)] px-2 py-0.5 rounded-lg text-[var(--color-text-primary)]">
-              منصة مستر نشأت؟
-            </span>
-          </h2>
-          <p className="text-[var(--color-text-secondary)] text-sm sm:text-base lg:text-lg leading-relaxed px-2">
-            لأننا مش بنشرح منهج وبس، إحنا بنبني فكر مؤرخ وجغرافي قادر على تحليل أي سؤال في النظام الحديث بثقة وسهولة.
-          </p>
+          <SectionTitle
+            title="ليه تختار منصة مستر نشأت؟"
+            align="center"
+          />
         </motion.div>
 
         {/* شبكة العرض */}
