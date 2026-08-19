@@ -138,6 +138,40 @@ export default function CreateCourseForm() {
         )}
       </div>
 
+      {/* السعر وصورة الغلاف */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="space-y-1.5">
+          <label className="block text-sm font-semibold text-[var(--color-primary)]">
+            السعر (جنيه)
+          </label>
+          <input
+            {...register("price")}
+            type="number"
+            min={0}
+            placeholder="0"
+            className="w-full px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-sm"
+          />
+          {errors.price && (
+            <p className="text-xs text-red-500">{errors.price.message}</p>
+          )}
+        </div>
+
+        <div className="space-y-1.5">
+          <label className="block text-sm font-semibold text-[var(--color-primary)]">
+            رابط صورة الغلاف (اختياري)
+          </label>
+          <input
+            {...register("coverImage")}
+            type="url"
+            placeholder="https://..."
+            className="w-full px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-text-primary)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] text-sm"
+          />
+          {errors.coverImage && (
+            <p className="text-xs text-red-500">{errors.coverImage.message}</p>
+          )}
+        </div>
+      </div>
+
       {/* زر الحفظ */}
       <button
         type="submit"
