@@ -10,7 +10,7 @@ const INITIAL_LOGIN_DATA: LoginFormData = {
   password: "",
 };
 
-export function useLoginForm() {
+export function useLoginForm(callbackUrl?: string) {
   const router = useRouter();
   const [formData, setFormData] = useState<LoginFormData>(INITIAL_LOGIN_DATA);
   const [showPassword, setShowPassword] = useState(false);
@@ -66,7 +66,10 @@ export function useLoginForm() {
         toast.error(errorMessage);
       } else {
         toast.success("تم تسجيل الدخول بنجاح!");
-        router.push("/dashboard");
+        const destination = callbackUrl?.startsWith("/") && !callbackUrl.startsWith("//")
+          ? callbackUrl
+          : "/dashboard/teacher";
+        router.push(destination);
         router.refresh();
       }
     } catch {

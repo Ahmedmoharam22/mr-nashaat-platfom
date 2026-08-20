@@ -5,7 +5,8 @@ import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/connect";
 import User from "@/models/User";
 
-const config: NextAuthConfig = {
+export const authOptions: NextAuthConfig = {
+  trustHost: true,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -47,18 +48,17 @@ const config: NextAuthConfig = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.role = (user as any).role;
-        token.grade = (user as any).grade;
-        // user.id is `string | undefined` in Next-Auth types; assert non-null
+        token.role = user.role;
+        token.grade = user.grade;
         token.id = user.id!;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as any).role = token.role;
-        (session.user as any).grade = token.grade;
-        (session.user as any).id = token.id;
+        session.user.role = token.role;
+        session.user.grade = token.grade;
+        session.user.id = token.id;
       }
       return session;
     },
@@ -70,7 +70,7 @@ const config: NextAuthConfig = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
 };
 
-export const { handlers, auth, signIn, signOut } = NextAuth(config);
+export const { handlers, auth, signIn, signOut } = NextAuth(authOptions);
