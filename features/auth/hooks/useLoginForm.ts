@@ -64,10 +64,9 @@ export function useLoginForm() {
         const errorMessage = "بيانات الدخول غير صحيحة. يرجى التأكد من رقم الهاتف وكلمة المرور.";
         setServerError(errorMessage);
         toast.error(errorMessage);
-      } else {
+      } else if (res?.ok) {
         toast.success("تم تسجيل الدخول بنجاح!");
-        router.push("/dashboard");
-        router.refresh();
+        window.location.href = "/dashboard/teacher";
       }
     } catch {
       const errorMessage = "تعذّر الاتصال بالخادم. يرجى المحاولة مرة أخرى.";
