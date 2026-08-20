@@ -6,6 +6,21 @@ import { connectDB } from "@/lib/connect";
 import User from "@/models/User";
 
 const config: NextAuthConfig = {
+  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
+  useSecureCookies: process.env.NODE_ENV === "production",
+  cookies: {
+    sessionToken: {
+      name: process.env.NODE_ENV === "production" 
+        ? "__Secure-next-auth.session-token" 
+        : "next-auth.session-token",
+      options: {
+        httpOnly: true,
+        sameSite: "lax",
+        path: "/",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -62,6 +77,18 @@ const config: NextAuthConfig = {
       }
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      if (url.includes("/login")) {
+        return `${baseUrl}/dashboard/teacher`;
+      }
+      if (url.startsWith("/")) {
+        return `${baseUrl}${url}`;
+      }
+      if (new URL(url).origin === baseUrl) {
+        return url;
+      }
+      return `${baseUrl}/dashboard/teacher`;
+    },
   },
   pages: {
     signIn: "/login",
@@ -70,7 +97,6 @@ const config: NextAuthConfig = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXTAUTH_SECRET,
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config);

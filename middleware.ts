@@ -3,7 +3,11 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const token = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
+    secureCookie: process.env.NODE_ENV === "production",
+  });
   const { pathname } = req.nextUrl;
 
   // المسارات المحمية وقواعد الأدوار
