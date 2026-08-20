@@ -6,7 +6,11 @@ import { Phone, Lock, Eye, EyeOff, Loader2, LogIn } from "lucide-react";
 import { InputWrapper } from "@/components/ui/InputWrapper";
 import { useLoginForm } from "../hooks/useLoginForm";
 
-export default function LoginForm() {
+type LoginFormProps = {
+  callbackUrl?: string;
+};
+
+export default function LoginForm({ callbackUrl }: LoginFormProps) {
   const {
     formData,
     showPassword,
@@ -16,7 +20,7 @@ export default function LoginForm() {
     handleChange,
     toggleShowPassword,
     handleSubmit,
-  } = useLoginForm();
+  } = useLoginForm(callbackUrl);
 
   const inputClass = (hasError: boolean) =>
     `w-full bg-white border-b-2 ${
