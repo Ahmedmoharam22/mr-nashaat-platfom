@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
+import { motion, useMotionValue, useTransform, animate, useInView, Variants } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 // مكون العداد السلس مع دعم التمرير
@@ -14,7 +14,7 @@ function MotionCount({ target, suffix = "" }: { target: number; suffix?: string 
     if (isInView) {
       const controls = animate(count, target, {
         duration: 2.2,
-        ease: [0.16, 1, 0.3, 1], // Custom cubic-bezier لسلاسة فائقة
+        ease: [0.16, 1, 0.3, 1],
       });
       return controls.stop;
     }
@@ -28,6 +28,33 @@ function MotionCount({ target, suffix = "" }: { target: number; suffix?: string 
   );
 }
 
+// تعريف الأنيميشن مع تحديد الـ Variants Type لمنع أخطاء TypeScript في Vercel Build
+const containerVariants: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.16, 1, 0.3, 1],
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, scale: 0.9, y: 15 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.16, 1, 0.3, 1],
+    },
+  },
+};
+
 export default function StatsSection() {
   const stats = [
     { value: 1500, suffix: "+", label: "طلابنا المؤرخين" },
@@ -35,29 +62,6 @@ export default function StatsSection() {
     { value: 5400, suffix: "+", label: "عيلتنا على فيسبوك" },
     { value: 100, suffix: "%", label: "متابعة أولياء الأمور" },
   ];
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.7,
-        ease: "easeOut",
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9, y: 15 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
 
   return (
     <section className="w-full relative z-20 -mt-10 sm:-mt-14 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
@@ -68,7 +72,7 @@ export default function StatsSection() {
         viewport={{ once: true, margin: "-100px" }}
         className="w-full p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-slate-950/70 backdrop-blur-md border border-amber-500/20 shadow-2xl shadow-amber-500/5 relative overflow-hidden"
       >
-        {/* GlowEffect خفيف في الخلفية */}
+        {/* GlowEffect في الخلفية */}
         <div className="absolute -top-24 -left-24 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
 
