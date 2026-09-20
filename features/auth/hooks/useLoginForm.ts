@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { toast } from "react-hot-toast";
 import { LoginFormData, LoginFieldErrors } from "@/types/auth";
 import { loginSchema } from "../schemas/auth.schema";
@@ -66,7 +66,11 @@ export function useLoginForm() {
         toast.error(errorMessage);
       } else if (res?.ok) {
         toast.success("تم تسجيل الدخول بنجاح!");
-        window.location.href = "/dashboard/teacher";
+        const session = await getSession();
+        const role = session?.user?.role;
+        const targetPath = role === "student" ? "/dashboard/student" : "/dashboard/teacher";
+        router.push(targetPath);
+        router.refresh();
       }
     } catch {
       const errorMessage = "تعذّر الاتصال بالخادم. يرجى المحاولة مرة أخرى.";

@@ -1,76 +1,88 @@
+// "use client";
+
 // import Link from "next/link";
 // import Image from "next/image";
-// import StatsSection from "./StatsSection";
+// import { motion } from "framer-motion";
 
 // export default function HeroSection() {
 //   return (
-//     <section className="relative w-full min-h-[500px] sm:min-h-[600px] lg:min-h-[85vh] flex flex-col justify-between pt-24 sm:pt-32 pb-8 sm:pb-12 overflow-x-hidden bg-[#8c6b1b] text-white dir-rtl">
-      
-//       {/* 1. صورة الخلفية الممزوجة */}
+//     <section className="relative w-full min-h-screen flex flex-col justify-center items-center pt-20 pb-10 overflow-hidden text-white">
+//       {/* خلفية الصور المتجاوبة */}
 //       <div className="absolute inset-0 z-0 w-full h-full">
-//         <Image
-//           src="/images/hero-bg-history.jpg"
-//           alt="مستر نشأت مع الشخصيات التاريخية"
-//           fill
-//           priority
-//           sizes="100vw"
-//           className="object-cover object-[left_center] sm:object-[20%_center] lg:object-center opacity-90 transition-all duration-300"
-//         />
-//         {/* تدرج لوني دافئ وداكن لدمج النصوص وإبراز المعلم على أجهزة الموبايل والدسكتوب */}
-//         <div className="absolute inset-0 bg-gradient-to-b from-[#6e5211]/90 via-[#8c6b1b]/40 to-transparent" />
-//         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-//       </div>
-
-//       {/* 2. المحتوى الرئيسي بالمنتصف */}
-//       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center space-y-4 sm:space-y-6 my-auto pt-4 sm:pt-6">
         
-//         {/* Badge الهوية */}
-//         <div className="inline-block">
-//           <span className="text-amber-200 text-sm sm:text-xl lg:text-2xl font-black tracking-wide">
-//             مستر نشأت الحسيني - خليك مؤرخ على حق
-//           </span>
+//         {/* 📱 1. صورة الموبايل (تظهر في الشاشات الصغيره فقط < 640px) */}
+//         <div className="block sm:hidden relative w-full h-full">
+//           <Image
+//             src="/images/hero-image-mobile.png"
+//             alt="مستر نشأت مع الشخصيات التاريخية - موبايل"
+//             fill
+//             priority
+//             sizes="100vw"
+//             className="object-cover object-center"
+//           />
+//           {/* جرادينت داكن مخصص للموبايل لضمان وضوح النص والكتابة */}
+//           <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/55 to-slate-950/90" />
 //         </div>
 
-//         {/* العنوان الرئيسي */}
-//         <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight sm:leading-snug text-white drop-shadow-md">
+//         {/* 💻 2. صورة الديسك توب (تظهر من شاشات sm فما فوق >= 640px) */}
+//         <div className="hidden sm:block relative w-full h-full">
+//           <Image
+//             src="/images/hero-bg-history.jpg"
+//             alt="مستر نشأت مع الشخصيات التاريخية"
+//             fill
+//             priority
+//             sizes="100vw"
+//             className="object-cover object-[20%_center] lg:object-center"
+//           />
+//           {/* جرادينت متوازن للديسك توب */}
+//           <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-black/50 to-primary/20" />
+//         </div>
+
+//       </div>
+
+//       {/* محتوى الهيرو الرئيسي */}
+//       <motion.div
+//         initial={{ opacity: 0, y: 24 }}
+//         animate={{ opacity: 1, y: 0 }}
+//         transition={{ duration: 0.6, ease: "easeOut" }}
+//         className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center space-y-5 sm:space-y-6 my-auto"
+//       >
+//         <span className="inline-block text-accent-light text-sm sm:text-base lg:text-lg font-bold tracking-wide">
+//           مستر نشأت الحسيني - خليك مؤرخ على حق
+//         </span>
+
+//         <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight sm:leading-snug drop-shadow-md">
 //           ادرس التاريخ بطريقة سهلة، شيقة، <br className="hidden sm:inline" />
 //           ومليانة أمثلة تربط بين الماضي والحاضر
 //         </h1>
 
-//         {/* زر الانضمام الرئيسي */}
-//         <div className="pt-2">
+//         <motion.div
+//           whileTap={{ scale: 0.97 }}
+//           className="pt-2 inline-block"
+//         >
 //           <Link
 //             href="/register"
 //             className="inline-flex items-center justify-center bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 border-2 border-[var(--color-primary)] text-slate-950 hover:text-amber-200 font-black text-base sm:text-lg px-8 sm:px-10 py-3 sm:py-3.5 rounded-xl shadow-lg transition-colors duration-200"
 //           >
 //             انضم لعيلتنا
 //           </Link>
-//         </div>
+//         </motion.div>
 
-//         {/* شعار السوشيال والنصوص الفرعية */}
 //         <div className="space-y-1.5 sm:space-y-2 pt-2 sm:pt-4">
-//           <p className="text-amber-200 text-xs sm:text-base font-bold">
+//           <p className="text-accent-light text-xs sm:text-base font-bold">
 //             #كلام_مؤرخين .. #ثانوية_عامة
 //           </p>
-//           <p className="text-xs sm:text-sm font-semibold text-slate-100 max-w-xl mx-auto px-2">
+//           <p className="text-xs sm:text-sm font-semibold text-white/90 max-w-xl mx-auto px-2">
 //             تبدأ من هنا... عشان التاريخ هو المفتاح لكل حاجة!
 //           </p>
-//           <p className="text-xs sm:text-sm font-semibold text-slate-200 px-2">
+//           <p className="text-xs sm:text-sm font-semibold text-white/80 px-2">
 //             متفوتش فرصة متابعة نجلك من خلال داشبورد ولي الأمر!
 //           </p>
 //         </div>
-
-//       </div>
-
-//       {/* 3. شريط الإحصائيات بالأسفل */}
-//       <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pt-8 sm:pt-12">
-//         <StatsSection />
-//       </div>
-
+//       </motion.div>
 //     </section>
 //   );
 // }
-
 
 
 "use client";
@@ -78,69 +90,85 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import StatsSection from "./StatsSection";
 
 export default function HeroSection() {
   return (
-    <section className="relative w-full min-h-[500px] sm:min-h-[600px] lg:min-h-[85vh] flex flex-col justify-between pt-24 sm:pt-32 pb-8 sm:pb-12 overflow-x-hidden text-white">
-      {/* صورة الخلفية */}
+    <section className="relative w-full min-h-screen flex flex-col justify-end sm:justify-center items-center pt-28 pb-12 sm:pt-20 sm:pb-10 overflow-hidden text-white">
+      {/* خلفية الصور المتجاوبة */}
       <div className="absolute inset-0 z-0 w-full h-full">
-        <Image
-          src="/images/hero-bg-history.jpg"
-          alt="مستر نشأت مع الشخصيات التاريخية"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[left_center] sm:object-[20%_center] lg:object-center"
-        />
-        {/* جرادينت واحد بيغطي كل الحالات */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-primary/30" />
+        
+        {/* 📱 1. صورة الموبايل */}
+        <div className="block sm:hidden relative w-full h-full">
+          <Image
+            src="/images/hero-image-mobile.png"
+            alt="مستر نشأت مع الشخصيات التاريخية - موبايل"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-top" // object-top عشان نضمن إن وش المستر والشخصيات يبانوا فوق
+          />
+          {/* جرادينت متدرج: شفاف فوق عشان الصورة تبان، وداكن جداً تحت عشان الكتابة تقرأ بوضوح */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-slate-950/95" />
+        </div>
+
+        {/* 💻 2. صورة الديسك توب */}
+        <div className="hidden sm:block relative w-full h-full">
+          <Image
+            src="/images/hero-bg-history.jpg"
+            alt="مستر نشأت مع الشخصيات التاريخية"
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[20%_center] lg:object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-black/50 to-primary/20" />
+        </div>
+
       </div>
 
-      {/* المحتوى */}
+      {/* محتوى الهيرو الرئيسي */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center space-y-4 sm:space-y-6 my-auto pt-4 sm:pt-6"
+        className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center space-y-4 sm:space-y-6 mt-auto sm:my-auto"
       >
-        <span className="inline-block text-accent-light text-sm sm:text-base lg:text-lg font-bold tracking-wide">
-          مستر نشأت الحسيني - خليك مؤرخ على حق
-        </span>
+        {/* Glass Container للموبايل فقط ليمنح خلفية شبه شفافة خلف الكلام */}
+        <div className="p-4 sm:p-0 rounded-2xl bg-black/40 sm:bg-transparent backdrop-blur-xs sm:backdrop-blur-none border border-white/10 sm:border-none space-y-4 sm:space-y-6">
+          <span className="inline-block text-accent-light text-xs sm:text-base lg:text-lg font-bold tracking-wide">
+            مستر نشأت الحسيني - خليك مؤرخ على حق
+          </span>
 
-        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight sm:leading-snug drop-shadow-md">
-          ادرس التاريخ بطريقة سهلة، شيقة، <br className="hidden sm:inline" />
-          ومليانة أمثلة تربط بين الماضي والحاضر
-        </h1>
+          <h1 className="text-xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight sm:leading-snug drop-shadow-lg">
+            ادرس التاريخ بطريقة سهلة، شيقة، <br className="hidden sm:inline" />
+            ومليانة أمثلة تربط بين الماضي والحاضر
+          </h1>
 
-        <motion.div
-          whileTap={{ scale: 0.97 }}
-          className="pt-2 inline-block"
-        >
-          <Link
-            href="/register"
-            className="inline-flex items-center justify-center bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 border-2 border-[var(--color-primary)] text-slate-950 hover:text-amber-200 font-black text-base sm:text-lg px-8 sm:px-10 py-3 sm:py-3.5 rounded-xl shadow-lg transition-colors duration-200"
+          <motion.div
+            whileTap={{ scale: 0.97 }}
+            className="pt-1 sm:pt-2 inline-block"
           >
-            انضم لعيلتنا
-          </Link>
-        </motion.div>
+            <Link
+              href="/register"
+              className="inline-flex items-center justify-center bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 border-2 border-[var(--color-primary)] text-slate-950 hover:text-amber-200 font-black text-sm sm:text-lg px-7 sm:px-10 py-2.5 sm:py-3.5 rounded-xl shadow-lg transition-colors duration-200"
+            >
+              انضم لعيلتنا
+            </Link>
+          </motion.div>
 
-        <div className="space-y-1.5 sm:space-y-2 pt-2 sm:pt-4">
-          <p className="text-accent-light text-xs sm:text-base font-bold">
-            #كلام_مؤرخين .. #ثانوية_عامة
-          </p>
-          <p className="text-xs sm:text-sm font-semibold text-white/90 max-w-xl mx-auto px-2">
-            تبدأ من هنا... عشان التاريخ هو المفتاح لكل حاجة!
-          </p>
-          <p className="text-xs sm:text-sm font-semibold text-white/80 px-2">
-            متفوتش فرصة متابعة نجلك من خلال داشبورد ولي الأمر!
-          </p>
+          <div className="space-y-1 sm:space-y-2 pt-1 sm:pt-4">
+            <p className="text-accent-light text-xs sm:text-base font-bold">
+              #كلام_مؤرخين .. #ثانوية_عامة
+            </p>
+            <p className="text-[11px] sm:text-sm font-semibold text-white/90 max-w-xl mx-auto px-2">
+              تبدأ من هنا... عشان التاريخ هو المفتاح لكل حاجة!
+            </p>
+            <p className="text-[11px] sm:text-sm font-semibold text-white/80 px-2">
+              متفوتش فرصة متابعة نجلك من خلال داشبورد ولي الأمر!
+            </p>
+          </div>
         </div>
       </motion.div>
-
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pt-8 sm:pt-12">
-        <StatsSection />
-      </div>
     </section>
   );
 }

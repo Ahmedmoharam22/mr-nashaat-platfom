@@ -56,7 +56,7 @@ export default function Footer() {
             <ul className="space-y-2 font-semibold text-slate-700 text-sm">
               <li>
                 <a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/nshat.alhsyny"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 hover:text-amber-600 transition-colors"
@@ -82,7 +82,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://youtube.com"
+                  href="https://youtube.com/@nashaatmohamed-mx3rc?si=ULO05eNheZF-ZvpD"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 hover:text-amber-600 transition-colors"

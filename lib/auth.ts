@@ -1,26 +1,12 @@
 import NextAuth from "next-auth";
-import type { NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { connectDB } from "@/lib/connect";
 import User from "@/models/User";
+import { authConfig } from "@/auth.config";
 
-const config: NextAuthConfig = {
-  secret: process.env.NEXTAUTH_SECRET || process.env.AUTH_SECRET,
-  useSecureCookies: process.env.NODE_ENV === "production",
-  cookies: {
-    sessionToken: {
-      name: process.env.NODE_ENV === "production" 
-        ? "__Secure-next-auth.session-token" 
-        : "next-auth.session-token",
-      options: {
-        httpOnly: true,
-        sameSite: "lax",
-        path: "/",
-        secure: process.env.NODE_ENV === "production",
-      },
-    },
-  },
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -59,44 +45,4 @@ const config: NextAuthConfig = {
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.role = (user as any).role;
-        token.grade = (user as any).grade;
-        // user.id is `string | undefined` in Next-Auth types; assert non-null
-        token.id = user.id!;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        (session.user as any).role = token.role;
-        (session.user as any).grade = token.grade;
-        (session.user as any).id = token.id;
-      }
-      return session;
-    },
-    async redirect({ url, baseUrl }) {
-      if (url.includes("/login")) {
-        return `${baseUrl}/dashboard/teacher`;
-      }
-      if (url.startsWith("/")) {
-        return `${baseUrl}${url}`;
-      }
-      if (new URL(url).origin === baseUrl) {
-        return url;
-      }
-      return `${baseUrl}/dashboard/teacher`;
-    },
-  },
-  pages: {
-    signIn: "/login",
-    error: "/login",
-  },
-  session: {
-    strategy: "jwt",
-  },
-};
-
-export const { handlers, auth, signIn, signOut } = NextAuth(config);
+});
