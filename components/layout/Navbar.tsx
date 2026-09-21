@@ -102,20 +102,20 @@ export default function Navbar() {
               </button>
             </div>
           ) : (
-            <div className="flex items-center gap-2">
-              <Link
-                href="/login"
-                className="px-4 py-2 text-sm font-semibold text-[var(--color-text-primary)] hover:text-amber-600 border border-transparent hover:border-amber-400 hover:bg-amber-400/10 rounded-lg transition-colors duration-200"
-              >
-                دخول
-              </Link>
-              <Link
-                href="/register"
-                className="px-4.5 py-2 text-sm font-semibold bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 border border-[var(--color-primary)] text-slate-950 hover:text-[var(--color-primary-active)] rounded-xl transition-colors duration-200"
-              >
-                حساب جديد
-              </Link>
-            </div>
+           <div className="flex items-center gap-2">
+  <Link
+    href="/login"
+    className="px-4 py-2 text-sm font-semibold text-[var(--color-text-primary)] hover:text-amber-600 border border-transparent hover:border-amber-400 hover:bg-amber-400/10 rounded-lg transition-colors duration-150"
+  >
+    دخول
+  </Link>
+  <Link
+    href="/register"
+    className="px-4.5 py-2 text-sm font-semibold bg-[var(--color-primary)] hover:bg-[var(--color-primary)]/10 border border-[var(--color-primary)] text-slate-950 hover:text-[var(--color-primary-active)] rounded-xl transition-colors duration-150"
+  >
+    حساب جديد
+  </Link>
+</div>
           )}
         </div>
 
